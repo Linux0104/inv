@@ -1,0 +1,70 @@
+.hotbar {
+    display: flex;
+    bottom: 0;
+    flex-direction: row;
+    padding: 5px;
+    margin-top: 40px;
+    justify-content: center;
+}
+
+.hotbar .slot {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100px; /* keep size */
+    height: 100px;
+    background: rgba(9, 13, 19, 0.88);
+    border: 1px solid rgba(120, 170, 210, 0.12);
+    border-radius: 4px;
+    margin: 7px;
+    color: var(--text);
+    transition: transform 100ms, border-color 150ms, box-shadow 150ms;
+    z-index: 10;
+}
+.hotbar .slot::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 8px; right: 8px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(120, 170, 210, 0.2), transparent);
+}
+
+.hotbar .slot:hover {
+    border-color: var(--cyan-dim);
+    box-shadow: 0 0 16px rgba(51, 198, 255, 0.12);
+}
+
+.hotbar .item {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background: none;
+    margin: 0;
+}
+
+.hotbar .item:hover {
+    transform: scale(1.0);
+}
+
+.hotbar .item-name {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-soft);
+}
+
+.hovering-slot {
+    transform: scale(0.95);
+    border-color: var(--cyan) !important;
+}
+
+.hotbar-wrapper {
+    position: absolute;
+    bottom: 1%;
+    left: 50%;
+    transform: translateX(-50%) scale(0.85);
+}
