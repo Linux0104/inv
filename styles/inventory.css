@@ -42,17 +42,38 @@
     box-shadow: 0 0 14px rgba(51, 198, 255, 0.5);
 }
 
-/* Faint grid texture overlay for the terminal feel */
+/* Faint grid texture + scanlines + soft moving shimmer (sci-fi terminal feel) */
 .strada-container::after {
     content: "";
     position: absolute;
     inset: 0;
+    pointer-events: none;
+    opacity: 0.7;
     background-image:
+        /* soft cyan shimmer band that sweeps down */
+        linear-gradient(180deg, transparent 42%, rgba(51, 198, 255, 0.07) 50%, transparent 58%),
+        /* faint horizontal scanlines */
+        repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.14) 0px, rgba(0, 0, 0, 0.14) 1px, transparent 1px, transparent 3px),
+        /* grid texture */
         linear-gradient(rgba(120, 170, 210, 0.025) 1px, transparent 1px),
         linear-gradient(90deg, rgba(120, 170, 210, 0.025) 1px, transparent 1px);
-    background-size: 34px 34px;
-    pointer-events: none;
-    opacity: 0.6;
+    background-size:
+        100% 220%,
+        100% 3px,
+        34px 34px,
+        34px 34px;
+    background-repeat: no-repeat, repeat, repeat, repeat;
+    animation: strada-scan 7s linear infinite;
+}
+
+/* only the shimmer layer moves; grid & scanlines stay put */
+@keyframes strada-scan {
+    0%   { background-position: 0 -120%, 0 0, 0 0, 0 0; }
+    100% { background-position: 0 120%,  0 0, 0 0, 0 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .strada-container::after { animation: none; }
 }
 
 .dual-inventory-wrapper .strada-container {
